@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/styles/text_styles.dart';
+import 'package:flutter_auth/view/screens/signup_screen.dart';
 import 'package:flutter_auth/widgets/edit_text.dart';
 import 'package:flutter_auth/widgets/my_button.dart';
+import 'package:flutter_auth/widgets/toast_message.dart';
 import 'package:flutter_auth/widgets/white_rounded_shape.dart';
+import 'package:toastification/toastification.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
     EdgeInsets devicePadding = MediaQuery.of(context).padding;
     return  Scaffold(
       backgroundColor: Colors.grey.shade100,
-      body: const SizedBox(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Padding(
@@ -42,7 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               SizedBox(height: 15,),
-              MyButton(text: 'LOGIN', color: Colors.blueAccent),
+              MyButton(onTap:(){
+                CustomToastMessage.show(context, 'Logged In Successfully');
+              },text: 'LOGIN', color: Colors.blueAccent),
               SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -50,8 +55,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text('Don\'t have an account?',textAlign: TextAlign.end,style: TextStyle(fontWeight: FontWeight.w300
                   ),),
                   SizedBox(width: 8,),
-                  Text('Create an account',textAlign: TextAlign.end,style: TextStyle(color:Colors.blue,fontWeight: FontWeight.w300
-                  ),),
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+                    },
+                    child: Text('Create an account',textAlign: TextAlign.end,style: TextStyle(color:Colors.blue,fontWeight: FontWeight.w300
+                    ),),
+                  ),
 
                 ],
               ),
