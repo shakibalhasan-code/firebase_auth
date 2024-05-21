@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/view/screens/home_screen.dart';
 import 'package:flutter_auth/view/screens/login_screen.dart';
 
 void main(){
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        useMaterial3: true
+        useMaterial3: true,
+
       ),
-      home: const LoginScreen(),
+      home: const HomeScreen(),
     );
   }
 }

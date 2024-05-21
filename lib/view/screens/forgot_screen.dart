@@ -45,7 +45,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                     child: MyButton(onTap:(){
                       String email = _emailController.text.trim();
                       UserAuthentication.forgotPassword(context, email);
-                    },text: 'Request Password', color: Colors.blueAccent),
+                    },text: 'Reset', color: Colors.blueAccent),
                   ),
                  const  SizedBox(width: 5,),
                   Expanded(

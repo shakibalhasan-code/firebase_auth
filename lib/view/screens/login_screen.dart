@@ -82,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 15),
               MyButton(
                 onTap: () {
+
                   String email = _emailController.text.trim();
                   String pass = _passController.text.trim();
                   if (email.isNotEmpty && pass.isNotEmpty) {
