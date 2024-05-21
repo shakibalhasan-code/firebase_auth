@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/services/firebase_auth_services.dart';
+import 'package:flutter_auth/services/toast_message_services.dart';
 import 'package:flutter_auth/styles/text_styles.dart';
 import 'package:flutter_auth/widgets/edit_text.dart';
 import 'package:flutter_auth/widgets/my_button.dart';
@@ -14,6 +16,10 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _userController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     EdgeInsets devicePadding = MediaQuery.of(context).padding;
@@ -30,39 +36,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Create a Free Account', style: h1Text),
-                Text('Fill up this form and continue', style: h4Text),
-                SizedBox(height: 15),
-                CustomEditText(icon: Icons.person, hint: 'Full Name'),
-                SizedBox(height: 8),
-                CustomEditText(icon: Icons.email, hint: 'E-mail'),
-                SizedBox(height: 8),
-                CustomEditText(icon: Icons.person, hint: 'Username'),
-                SizedBox(height: 8),
-                CustomEditText(icon: Icons.lock, hint: 'Password'),
-                SizedBox(height: 15),
+                 Column(
+                  children: [
+                    Text('Create a Free Account', style: h1Text),
+                    SizedBox(height: 8,),
+                    Text('Fill up this form and continue', style: h4Text),
+                    SizedBox(height: 15),
+                    CustomEditText(obscureText: false,textEditingController: _nameController,
+                        type: TextInputType.text,icon: Icons.person, hint: 'Full Name'),
+                    SizedBox(height: 8),
+                    CustomEditText(obscureText: false,textEditingController: _emailController,type: TextInputType.emailAddress,icon: Icons.email, hint: 'E-mail'),
+                    SizedBox(height: 8),
+                    CustomEditText(obscureText: false,textEditingController: _userController,type: TextInputType.text,icon: Icons.person, hint: 'Username'),
+                    SizedBox(height: 8),
+                    CustomEditText(obscureText: true,textEditingController: _passController,type: TextInputType.text,icon: Icons.lock, hint: 'Password'),
+                    SizedBox(height: 15),
+                  ],
+                ),
                 MyButton(
                   onTap: () {
-                    CustomToastMessage.show(context, 'Congratulations! You have created your account');
+                    String email = _emailController.text.trim();
+                    String password = _passController.text.trim();
+                    if(email.isNotEmpty && password.isNotEmpty){
+                      UserAuthentication.createAccount(context, email, password);
+                    }else{
+                      CustomToastMessage().show(context, 'Please enter valid email and pass', false);
+                    }
                   },
                   text: 'Sign Up',
                   color: Colors.blueAccent,
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Already have an account?',
                       textAlign: TextAlign.end,
                       style: TextStyle(fontWeight: FontWeight.w300),
                     ),
-                    SizedBox(width: 8),
+                   const  SizedBox(width: 8),
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Text(
+                      child: const Text(
                         'Login',
                         textAlign: TextAlign.end,
                         style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w300),
@@ -70,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

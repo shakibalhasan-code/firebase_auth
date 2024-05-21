@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   toastification: ^2.0.0
   font_awesome_flutter: ^10.3.0 # Use the latest version available
+  firebase_auth: ^4.5.0  # Ensure this version is compatible with the firebase_core version
+  firebase_core: ^2.10.0  # Use a compatible version
+
 
 
 dev_dependencies:
